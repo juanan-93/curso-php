@@ -32,5 +32,10 @@ $coche2->marca = "Hyundai";
 $coche2->modelo = "Accent";
 $coche2->mostrar();
 
+#Principios de la POO que se cumplen en este ejemplo:
+#Abstraccion nuevo tipo de datos (el que tu quieras tu lo creas)
+#Encapsulamiento: Organizar el codigo en grupos logicos
+#Ocultamiento: Ocultar la informacion que no queremos que se vea.
+
 
 ?>
