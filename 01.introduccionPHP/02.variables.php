@@ -31,6 +31,7 @@ echo "<br><br>";
     #variable de tipo objeto
     $furtas = (object)["fruta1"=>"pera","fruta2"=>"manzana"];
     echo "esto es una fruta $furtas->fruta1";
+    echo "<br><br>";
     
 
 ?>
