@@ -4,18 +4,24 @@
 
 # variable numerica.
     $numero = 5;
-#esto es un ejemplo de variable de texto  concatanada con una variable numerica
 echo "esto es el numero $numero";
-echo "<br><br>";    
+echo "<br><br>";
+#var_dump nos muestra el tipo de variable y el valor
+var_dump($numero); 
+echo "<br><br>";   
 
  #variabel de texto
     $texto = "variable de texto";
+    #var_dump nos muestra el tipo de variable y el valor
+    var_dump($texto);  
+    echo "<br><br>"; 
     echo $texto;
 
 #variable booleana esta devuelkve un valor de true o false
     $booleana = true;
     echo "<br><br>";
     echo $booleana;
+    var_dump($booleana);
 
     #variable variable de tiopo arreglo
     $colores = array('rojo','amarillo','azul');   
