@@ -31,6 +31,7 @@
         // instanciado el objeto de manera estatica
         // de manera que se queda dentro de la variable registro almacenando el valor que retorna el metodo ctrFormulario
             $registro = controladorFormularios::ctrFormulario();
+            
             if($registro == "ok"){
                 // linea de codigo para limpiar la url y el local storage esta linea es en js la que se encuentra entre las dos etiquetas script
                 echo "<script>
