@@ -1,3 +1,12 @@
+<?php
+//Es la funcion que le dice al navegador que vamos a trabajar con variables de sesion
+// estas se usaran cuando el usuario se loguee coincidan los datos correctamente
+// con esto privatizamos la pagina de inicio
+  session_start();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -36,9 +36,28 @@
                 // stmt = null cierra el objeto stmt
                 $stmt = null;
             }
+        }
 
-
-
+        // metodo mostrar registros y realizar el ingreso
+        static public function mdlSeleccionarRegistros($tabla, $item = null, $valor = null){
+            
+            if($item == null && $valor == null){ //aqui se realiza la consulta para mostrar los registros por completo
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
+                if($stmt->execute()){
+                    return $stmt->fetchAll();
+                }else{
+                    print_r(Conexion::conectar()->errorInfo());
+                }
+            } else {//aqui se realiza la consulta para el ingreso
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY id DESC");
+                $stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+                if($stmt->execute()){
+                    return $stmt->fetch(); // Utiliza fetch() ya que esperas un único resultado
+                }else{
+                    print_r(Conexion::conectar()->errorInfo());
+                }
+            }
+            $stmt = null;
         }
 
     }
