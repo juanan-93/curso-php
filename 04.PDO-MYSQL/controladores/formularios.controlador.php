@@ -1,24 +1,35 @@
 <?php
     class controladorFormularios{
 
-        // Creamos el metodo ctrFormulario para recibir los datos del formulario
-       static public function ctrFormulario(){
+        // Creamos el metodo ctrFormulario para registrar los datos del formulario
+       static public function ctrRegistroFormulario(){
             // Dentro del metodo comprobamos si existe una variable tipo post dentro del formulario
             if(isset($_POST['registroNombre'])){
-                // Mandamos los datos al modelo
-                // primero declaramos una variable con el nombre de la tabla
-                $tabla = "registros";
-                //Segundo los guardamos los datos dentro de un array
-                $datos = array("nombre" => $_POST['registroNombre'],
-                                "email" => $_POST['registroEmail'],
-                                "password" => $_POST['registroPswd']
-                            ); 
-
-                //Tercero  Mandamos los datos al modelo, estos los mandamos a traves de un metodo estatico instanciandolo en el controlador
-                // instanciamos la clase ModeloFormularios y el metodo mdlRegistro dentro de la variable $respuesta para poder devolver $respuesta
-                // a la vista a traves de un return
-                $respuesta = ModeloFormularios::mdlRegistro($tabla, $datos);
-                return $respuesta;
+                //el condicional con el preg_match nos permite comprobar si el nombre lleva caracteres especiales o no
+                // para asi evitar cualquier tipo de inyeccion de codigo esdecir mteremos dentro de los parentesis lo que no queremos que lleve
+                // el primer parametro son los caracteres que no queremos que la gente nos meta en el formulario y en el mismo dentro de este primero 
+                // los caracteres que si queremos que lleve el formulario
+                if(preg_match(  '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['registroNombre'])&&
+                    preg_match(  '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['registroEmail'])&&
+                    preg_match(  '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['registroPswd'])) {
+                 // primero declaramos una variable con el nombre de la tabla
+                 $tabla = "registros";
+                 //Segundo los guardamos los datos dentro de un array
+                 $datos = array("nombre" => $_POST['registroNombre'],
+                                 "email" => $_POST['registroEmail'],
+                                 "password" => $_POST['registroPswd']
+                             ); 
+ 
+                 //Tercero  Mandamos los datos al modelo, estos los mandamos a traves de un metodo estatico instanciandolo en el controlador
+                 // instanciamos la clase ModeloFormularios y el metodo mdlRegistro dentro de la variable $respuesta para poder devolver $respuesta
+                 // a la vista a traves de un return
+                 $respuesta = ModeloFormularios::mdlRegistro($tabla, $datos);
+                 return $respuesta;
+                    
+                }else{
+                    echo '<br><div class="alert alert-danger">Error: El nombre no puede ir vacío o llevar caracteres especiales</div>';
+                
+                }
             }
         }
 
@@ -68,9 +79,9 @@
             }
         }
 
-        // Creamos el metodo ctrActualizarRegistro para actualizar los datos del formulario
+        // Creamos el metodo statico ctrActualizarRegistro para actualizar los datos del formulario
 
-        public function ctrActualizarRegistro(){
+        static public function ctrActualizarRegistro(){
             // Asegúrate de que todos los campos esperados están presentes antes de proceder
             if(isset($_POST["actualizarNombre"], $_POST["actualizarEmail"], $_POST["idUsuario"])){
                 // Comprueba si se proporcionó una nueva contraseña y asegúrate de que $password siempre esté definida
@@ -91,17 +102,34 @@
                 
                 // Solicita al modelo que actualice los datos
                 $respuesta = ModeloFormularios::mdlActualizarRegistro($tabla, $datos);
+                // para devolver la respuesta a la vista
+                return $respuesta;
+            } 
+           
+        }
 
+        public function ctrEliminarRegistro(){
+            // Comprueba si se proporcionó un id de usuario para eliminar
+            if(isset($_POST["eliminarRegistro"])){
+                // declaramos la tabla
+                $tabla = "registros";
+                // declaramos el valor que es el valor del campo
+                $valor = $_POST["eliminarRegistro"];
+                
+               //solicitamos al modelo que elimine el registro
+                $respuesta = ModeloFormularios::mdlEliminarRegistro($tabla, $valor);
+                // para devolver la respuesta a la vista
                 if($respuesta == "ok"){
                     echo '<script>
-                    if(window.history.replaceState){
-                        window.history.replaceState(null, null, window.location.href);
-                    }
+                        if(window.history.replaceState){
+                            window.history.replaceState(null, null, window.location.href);
+                            window.location = "index.php?pagina=inicio";
+                        }
                     </script>';
-                    echo '<div class="alert alert-success">El usuario ha sido actualizado</div>';
                 }
-            } 
+                return $respuesta;
+               
+            }
         }
-        
     }
 ?>

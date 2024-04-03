@@ -44,8 +44,21 @@
 
     <?php
         //Instanciamos el metodo actualizar los datos
-        $actualizar = new ControladorFormularios();
-        $actualizar -> ctrActualizarRegistro();
+        $actualizar = ControladorFormularios ::ctrActualizarRegistro();
+        //Si la respuesta es igual a ok mostramos un mensaje de exito y redirigimos a la pagina de inicio
+        if($actualizar == "ok"){
+            echo '<script>
+            if(window.history.replaceState){
+                window.history.replaceState(null, null, window.location.href);
+            }
+            </script>'; //el script de setTimeout es para que la pagina se recargue despues de 3 segundos y te mande a la pagina de inicio
+            echo '<div class="alert alert-success">El usuario ha sido actualizado</div>
+            <script>
+                setTimeout(function(){
+                    window.location = "index.php?pagina=inicio";
+                }, 3000);
+            </script>';
+        }
     ?>
 
         <button type="submit" class="btn btn-primary">Actualizar</button>

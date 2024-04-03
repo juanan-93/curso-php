@@ -1,28 +1,23 @@
 <?php
-// creamos un condicional para que si la variable de sesion validarIngreso no es igual a ok nos redirija a la pagina de ingreso     
-// primero comprueba si la variable de sesion validarIngreso esta definida
-// si esta definida comprueba si es diferente de ok
-// si es diferente de ok nos redirige a la pagina de ingreso
-if(!isset($_SESSION["validarIngreso"])){
-      //si se cumple la condicion de que no esta definida la variable de sesion validarIngreso nos redirige a la pagina de ingreso  
-      echo '<script> window.location = "index.php?pagina=ingreso"; </script>';
-      return;
-//si existe la variable de sesion validarIngreso y es diferente de ok
-}else{
-      if($_SESSION["validarIngreso"] != "ok"){
-            echo '<script>window.location = "index.php?pagina=ingreso";</script>';
-
+      // creamos un condicional para que si la variable de sesion validarIngreso no es igual a ok nos redirija a la pagina de ingreso     
+      // primero comprueba si la variable de sesion validarIngreso esta definida
+      // si esta definida comprueba si es diferente de ok
+      // si es diferente de ok nos redirige a la pagina de ingreso
+      if(!isset($_SESSION["validarIngreso"])){
+            //si se cumple la condicion de que no esta definida la variable de sesion validarIngreso nos redirige a la pagina de ingreso  
+            echo '<script> window.location = "index.php?pagina=ingreso"; </script>';
             return;
+      //si existe la variable de sesion validarIngreso y es diferente de ok
+      }else{
+            if($_SESSION["validarIngreso"] != "ok"){
+                  echo '<script>window.location = "index.php?pagina=ingreso";</script>';
+
+                  return;
+            }
       }
-}
-      
-//Crearemos un objeto que le haga al controlador desde la vista
-$usuario= ControladorFormularios::ctrSeleccionarRegistros(null, null);
-
-
-
-
-
+            
+      //Crearemos un objeto que le haga al controlador desde la vista
+      $usuario= ControladorFormularios::ctrSeleccionarRegistros(null, null);
 
 ?>
 
@@ -52,10 +47,30 @@ $usuario= ControladorFormularios::ctrSeleccionarRegistros(null, null);
                     <td>01/03/2025</td>
                         <td>
                               <div class="btn-group">
-                                    <!-- //creamos un enlace que nos redirija a la pagina de editar declaranado una variable get 
-                                    //y concatenando el id del usuario que queremos editar -->
-                                    <a href="index.php?pagina=editar&id=<?php echo $value["id"];?>" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                    <div class="px-1">
+                                          <!-- boton de editar -->
+                                          <!-- //creamos un enlace que nos redirija a la pagina de editar declaranado una variable get 
+                                          //y concatenando el id del usuario que queremos editar -->
+                                          <a href="index.php?pagina=editar&id=<?php echo $value["id"];?>" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                                    </div>
+                                    <!-- boton de elminar -->
+                                    <!-- creamos un formulario -->
+                                    
+                                    <form method="post">
+                                          <!-- creamos un input de tipo hidden para que no se muestre la id en el formulario pero que se envie al metodo eliminar -->
+                                          <input type="hidden" value="<?php echo $value["id"];?>" name="eliminarRegistro">
+                                          <!-- creamos un boton de tipo submit para que se envie el formulario -->
+                                          <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+
+                                          <?php
+                                                // peticion al controlador para que elimine el registro no estatica
+                                                $eliminar = new ControladorFormularios();
+                                                //instanciar el metodo ctrEliminarRegistro
+                                                $eliminar -> ctrEliminarRegistro();
+                                          ?>
+
+                                    </form>
+                              
                               </div>
                         </td>
                   </tr>

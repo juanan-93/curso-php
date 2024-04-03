@@ -76,6 +76,22 @@
             $stmt = null;
         }
 
+        // metodo eliminar registro
+        static public function mdlEliminarRegistro($tabla, $valor){
+            // declaramos la variable stmt que contendra la conexion a la base de datos a traves de la instancia conexion::conectar()
+            $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+            // bindParam asigna un valor a un parametro oculto que solo los que hemos puesto en la sentencia sql pueden ver con :nombre, :email, :password
+            $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
+            // si la sentencia se ejecuta correctamente lo sabremos  atraves de la funcion execute() que esta devolvera ture y se ejecutara el codigo return ok
+            if($stmt->execute()){
+                return "ok";
+            }else{
+                print_r(Conexion::conectar()->errorInfo());
+            }
+            // Para reforzar la seguridad de la base de datos, se debe cerrar la conexión a la base de datos
+            $stmt = null;
+        }
+
 
     }
 ?>
