@@ -2,6 +2,8 @@
 //Es la funcion que le dice al navegador que vamos a trabajar con variables de sesion
 // estas se usaran cuando el usuario se loguee coincidan los datos correctamente
 // con esto privatizamos la pagina de inicio
+// este tipo de variables no aparecen en el local sotorage del navegador
+// ponemos el session_start() en la plantilla.php para que se ejecute en todas las paginas
   session_start();
 ?>
 
@@ -122,6 +124,7 @@
         if($_GET["pagina"] == "registro" ||
           $_GET["pagina"] == "ingreso" ||
           $_GET["pagina"] == "inicio" ||
+          $_GET["pagina"] == "editar" ||//el valor que agregamos es el nombre del archivo
           $_GET["pagina"] == "salir"){
             // Si es así, incluimos el archivo correspondiente a esa página.
             // Concatenamos el valor de $_GET["pagina"] con el path y la extensión .php para formar el nombre del archivo.

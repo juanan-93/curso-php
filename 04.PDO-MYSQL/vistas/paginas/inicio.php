@@ -4,23 +4,24 @@
 // si esta definida comprueba si es diferente de ok
 // si es diferente de ok nos redirige a la pagina de ingreso
 if(!isset($_SESSION["validarIngreso"])){
+      //si se cumple la condicion de que no esta definida la variable de sesion validarIngreso nos redirige a la pagina de ingreso  
+      echo '<script> window.location = "index.php?pagina=ingreso"; </script>';
+      return;
+//si existe la variable de sesion validarIngreso y es diferente de ok
+}else{
       if($_SESSION["validarIngreso"] != "ok"){
-            echo '<script>
-            window.location = "index.php?pagina=ingreso";
-            </script>';
+            echo '<script>window.location = "index.php?pagina=ingreso";</script>';
+
             return;
       }
-//si no existen variables de sesion validarIngreso nos redirige a la pagina de ingreso
-}else{
-      echo '<script>
-      window.location = "index.php?pagina=ingreso";
-      </script>';
-      return;
 }
       
-
 //Crearemos un objeto que le haga al controlador desde la vista
-$usuario= ControladorFormularios::ctrSeleccionarRegistros();
+$usuario= ControladorFormularios::ctrSeleccionarRegistros(null, null);
+
+
+
+
 
 
 ?>
@@ -51,7 +52,9 @@ $usuario= ControladorFormularios::ctrSeleccionarRegistros();
                     <td>01/03/2025</td>
                         <td>
                               <div class="btn-group">
-                                    <a href="#" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                                    <!-- //creamos un enlace que nos redirija a la pagina de editar declaranado una variable get 
+                                    //y concatenando el id del usuario que queremos editar -->
+                                    <a href="index.php?pagina=editar&id=<?php echo $value["id"];?>" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
                                     <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                               </div>
                         </td>
