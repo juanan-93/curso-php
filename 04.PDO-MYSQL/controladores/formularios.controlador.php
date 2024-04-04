@@ -9,13 +9,19 @@
                 // para asi evitar cualquier tipo de inyeccion de codigo esdecir mteremos dentro de los parentesis lo que no queremos que lleve
                 // el primer parametro son los caracteres que no queremos que la gente nos meta en el formulario y en el mismo dentro de este primero 
                 // los caracteres que si queremos que lleve el formulario
-                if(preg_match(  '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['registroNombre'])&&
-                    preg_match(  '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['registroEmail'])&&
-                    preg_match(  '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['registroPswd'])) {
+                if(preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["registroNombre"]) &&
+			        preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["registroEmail"]) &&
+			         preg_match('/^[0-9a-zA-Z]+$/', $_POST["registroPswd"])){
                  // primero declaramos una variable con el nombre de la tabla
                  $tabla = "registros";
+                 //cremaos un token para la seguridad de la pagina web(este token lo tendremos que añadir al modelo para que lo guarde en la base de datos)
+                 //md5 es un metodo de encriptacion que nos permite encriptar los datos que se envian a traves de la url
+                 //dentro de los parentesis le pasamos los datos que queremos encriptar el simbolo + es para sumar los datos y con los puntos lo concatenamos
+                 $token = md5($_POST['registroNombre']. "+" . $_POST['registroEmail']);
                  //Segundo los guardamos los datos dentro de un array
-                 $datos = array("nombre" => $_POST['registroNombre'],
+                 //guardaremos el token en la base de datos para que cada usuario tenga un token diferente
+                 $datos = array( "token" => $token,
+                                "nombre" => $_POST['registroNombre'],
                                  "email" => $_POST['registroEmail'],
                                  "password" => $_POST['registroPswd']
                              ); 

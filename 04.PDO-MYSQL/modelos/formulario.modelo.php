@@ -13,11 +13,12 @@
             // A continucaion de esta declaramos la sentencia sql que insertara los datos en la tabla con ->prepare( y dentro de esta la sentencia sql)
             // Los valores o value estan puestos con :nombre, :email, :password para ponerlos de manera segura o culta ya que atraves de la funcion 
             // bindParam se le asignara un valor a cada uno de estos valores
-            $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre, email, password) VALUES (:nombre, :email, :password)");
+            $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(token,nombre, email, password) VALUES (:token,:nombre, :email, :password)");
 
             // bindParam asigna un valor a un parametro oculto que solo los que hemos puesto en la sentencia sql pueden ver con :nombre, :email, :password
             // bindParam("nombre del parametro", $variable que contiene el valor, tipo de dato que se pone con la sintaxis PDO::PARAM_STR)las ultimas siglas son el tipo de dato str es de string
             // en este caso asignamos el valor de $datos["nombre"] al parametro :nombre
+            $stmt -> bindParam(":token", $datos["token"], PDO::PARAM_STR);
             $stmt -> bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
             $stmt -> bindParam(":email", $datos["email"], PDO::PARAM_STR);
             $stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
