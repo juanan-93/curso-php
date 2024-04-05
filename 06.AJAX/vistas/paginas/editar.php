@@ -51,8 +51,8 @@
             echo '<script>
             if(window.history.replaceState){
                 window.history.replaceState(null, null, window.location.href);
-                
             }
+                
             </script>'; //el script de setTimeout es para que la pagina se recargue despues de 3 segundos y te mande a la pagina de inicio
             echo '<div class="alert alert-success">El usuario ha sido actualizado</div>';
             echo '<script>

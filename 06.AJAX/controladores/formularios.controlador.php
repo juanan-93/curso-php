@@ -43,7 +43,7 @@
         }
 
 
-        // cremaos el metodo para mostrar los datos del formulario
+        // metodo para seleccionar los registros 
         static public function ctrSeleccionarRegistros($item, $valor){
            //primero declarmos la tabla para pedir al modelo que nos devuelva los datos de la tabla que se llama registro
             $tabla = "registros";

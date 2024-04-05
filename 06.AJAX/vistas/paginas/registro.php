@@ -13,8 +13,9 @@
 
         <div class="form-group input-group mb-3">
             <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" name="registroEmail">
+            <input type="email" class="form-control" id="Remail" placeholder="Enter email" name="registroEmail">
         </div>
+        <div id="mensajeAviso"></div>
 
         <div class="form-group input-group mb-3">
             <span class="input-group-text"><i class="fa-solid fa-key"></i></span>

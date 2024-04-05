@@ -1,4 +1,4 @@
-<!-- Es el archivo generico que se va ha conectar a la base de datos -->
+
 
 <?php
     class Conexion{

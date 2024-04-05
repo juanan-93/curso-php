@@ -1,6 +1,7 @@
-<!-- Es el archivo generico que se va ha conectar a la base de datos -->
+
 
 <?php
+    // Es el archivo generico que se va ha conectar a la base de datos
     class Conexion{
          // creamos un metodo estatico para poder llamarlo sin instanciar la clase
          public static function conectar(){

@@ -28,9 +28,6 @@
         <script src="https://kit.fontawesome.com/6959075f0b.js" crossorigin="anonymous"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="path/to/your/script.js"></script>
-
-
 </head>
 <body>
 
@@ -146,7 +143,7 @@
 
 </div>
 
-<script src="vistas/js/srcipt.js">  </script>
+    <script src="./vistas/js/script.js"></script>
     
 </body>
 </html>
